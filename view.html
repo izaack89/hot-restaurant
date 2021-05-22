@@ -31,12 +31,12 @@
             <li class="nav-header disabled"><a>Waitlist</a></li>
         </ul>
     </div>
-    <div class="control-panel">
-        <a id="clearList">API Table link</a>
+    <div class="control-panel"><br>
+        <a href="/tables" id="clearList">Clear Table</a>
         <a>|</a>
-        <a href="/tables">API Table link</a>
+        <a href="/api/tables">API Table link</a>
         <a>|</a>
-        <a href="/waitlist">API Waitlist</a>
+        <a href="/api/waitlist">API Waitlist</a>
     </div>
     <script type="text/javascript">
         const currentReservation=document.querySelector('#currentReservation');
@@ -88,12 +88,11 @@
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(newReservation),
+                            }
                         })
-                            .then((response) => {
+                        .then((response) => {
                                 location.href = '/tables';
-                            });
+                        });
                     });
     </script>
 </body>

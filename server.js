@@ -52,13 +52,19 @@ app.post('/api/reserve', (req, res) => {
   const reservation = req.body;
   if (reservationData.length <6) {
     reservationData.push(reservation);
+    res.json(true);
    } else {
     waitlistData.push(reservation);
+    res.json(false);
   }
-
-  res.sendFile(path.join(__dirname, 'tables.html'));
+  
 });
 
+// Delete Arrays 
+app.post('/api/clear', (req, res) => {
+  reservationData.splice(0, reservationData.length);
+  waitlistData.splice(0, waitlistData.length);
+});
 // Starts the server to begin listening
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));

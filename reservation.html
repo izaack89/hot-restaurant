@@ -21,7 +21,7 @@
             <button class="btn" onclick="location.href = '/';" ><i class="fa fa-home"></i></button>
         </p>
     </div>
-    <form>
+    <form id="form-div">
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
             <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name" />
@@ -36,21 +36,18 @@
             <input type="text" class="form-control" id="email" placeholder="E-mail" />
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">UniqueID</label>
+            <label for="exampleInputPassword1">Unique ID</label>
             <input type="text" class="form-control" id="customerID" placeholder="ID" />
-        </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary" id="add-btn">Submit</button>
     </form>
     <div class="control-panel">
-        <a id="clearList">API Table link</a>
+        <br>
+        <a href="/tables" id="clearList">Clear Table</a>
         <a>|</a>
-        <a href="/tables">API Table link</a>
+        <a href="/api/tables">API Table link</a>
         <a>|</a>
-        <a href="/waitlist">API Waitlist</a>
+        <a href="/api/waitlist">API Waitlist</a>
     </div>
     <script type="text/javascript">
         const addBtn = document.getElementById("add-btn");
@@ -76,7 +73,21 @@
                 .then((response) => response.json())
                 .then((data) => {
                     console.log('tables.html', data);
-                    alert(`Adding customer: ${data.name}`);
+                    if (data == true) {
+                        alert("Yay! You are officially booked!")
+                    }
+
+                    // If a table is available... tell user they on the waiting list.
+                    if (data == false) {
+                        alert("Sorry you are on the wait list")
+                    }
+
+
+                    // Clear the form when submitting
+                    $('#name').val("");
+                    $('#phone').val("");
+                    $('#email').val("");
+                    $('#customerID').val("");
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -89,10 +100,11 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newReservation),
+                }
             })
-                .then((response) => {
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Clear List");
                     location.href = '/tables';
                 });
         });
