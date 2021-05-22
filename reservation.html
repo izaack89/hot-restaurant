@@ -45,6 +45,13 @@
         </div>
         <button type="submit" class="btn btn-primary" id="add-btn">Submit</button>
     </form>
+    <div class="control-panel">
+        <a id="clearList">API Table link</a>
+        <a>|</a>
+        <a href="/tables">API Table link</a>
+        <a>|</a>
+        <a href="/waitlist">API Waitlist</a>
+    </div>
     <script type="text/javascript">
         const addBtn = document.getElementById("add-btn");
         addBtn.addEventListener('click', (e) => {
@@ -73,6 +80,20 @@
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                });
+        });
+        const clearList = document.getElementById("clearList");
+        clearList.addEventListener('click', (e) => { 
+
+            fetch('/api/clear', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newReservation),
+            })
+                .then((response) => {
+                    location.href = '/tables';
                 });
         });
     </script>
