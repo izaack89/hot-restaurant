@@ -14,21 +14,11 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const reservationData = [
-  {
-    name: 'German',
-    phone: '555-555',
-    email: 'german@german.com',
-    id: 1,
-  }  
+  
 ];
 
 const waitlistData = [
-  {
-    name: 'Issac',
-    phone: '555-555',
-    email: 'issac@german.com',
-    id: 10,
-  }  
+ 
 ];
 
 // Routes
