@@ -40,7 +40,7 @@ app.get('/api/waitlist', (req, res) => res.json(waitlistData));
 // Create New Reservation - takes in JSON input
 app.post('/api/reserve', (req, res) => {
   const reservation = req.body;
-  if (reservationData.length <6) {
+  if (reservationData.length <5) {
     reservationData.push(reservation);
     res.json(true);
    } else {
