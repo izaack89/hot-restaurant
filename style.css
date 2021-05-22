@@ -39,3 +39,8 @@
 .main-title {
   font-family: "Staatliches", cursive;
 }
+
+.control-panel {
+  margin-left: 200px;
+  margin-right: 200px;
+}
