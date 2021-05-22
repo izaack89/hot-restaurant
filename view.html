@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="./style.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
 </head>
 
@@ -22,7 +23,7 @@
         </p>
     </div>
     <div>
-        <ul class="list-group" id="currentReservation">
+        <ul class="list-group" id="currentReservation" style="cursor: pointer;">
             <li class="nav-header disabled list-title"><a>Current reservations</a></li>
         </ul>
     </div>
@@ -41,6 +42,26 @@
     <script type="text/javascript">
         const currentReservation=document.querySelector('#currentReservation');
         const waitlist = document.querySelector('#waitlist');
+        currentReservation.addEventListener("click",function (e){
+            const reservationID= e.target.dataset.value;
+            if(!isNaN(reservationID)){
+                let deleteReservation = {
+                    ID: reservationID,
+                };
+                fetch(`/api/deleteReservation`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(deleteReservation),
+                }).then((response) => response.json()).then((data) => {
+                    location.reload();
+                }).catch((error) => {
+                    console.error(error);
+                });
+
+            }
+        })
         fetch(`/api/tables`, {
             method: 'GET',
             headers: {
@@ -54,6 +75,16 @@
                     let liEL = document.createElement('li');
                     liEL.setAttribute("class", "list-group-item");
                     liEL.textContent = reservation.name;
+
+                    let buttonEL = document.createElement('button');
+                    buttonEL.setAttribute("class", "btn  btn-danger");
+                    buttonEL.setAttribute("style", "position: absolute;top: -6px;right: 10px;");
+                    buttonEL.setAttribute("data-value", reservation.ID);
+                    let iEL = document.createElement('i');
+                    iEL.setAttribute("class", "fas fa-trash-alt");
+                    iEL.setAttribute("data-value", reservation.ID);
+                    buttonEL.appendChild(iEL);
+                    liEL.appendChild(buttonEL);
                     currentReservation.append(liEL);
                 });
                                 
@@ -69,7 +100,6 @@
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data);
                         data.forEach(reservation => {
                             let liEL = document.createElement('li');
                             liEL.setAttribute("class", "list-group-item");

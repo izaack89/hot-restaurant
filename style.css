@@ -44,3 +44,10 @@
   margin-left: 200px;
   margin-right: 200px;
 }
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 9px;
+  margin: 9px;
+}

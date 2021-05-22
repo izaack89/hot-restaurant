@@ -24,7 +24,6 @@ const waitlistData = [
 // Routes
 
 // Basic route that sends the user first to the AJAX Page
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reservation.html')));
 
@@ -55,6 +54,23 @@ app.post('/api/clear', (req, res) => {
   reservationData.splice(0, reservationData.length);
   waitlistData.splice(0, waitlistData.length);
 });
+
+app.post('/api/deleteReservation', (req, res) => {
+  console.log(req.body);
+  for( let i = 0; i < reservationData.length; i++){     
+        if ( reservationData[i].ID === req.body.ID) {     
+            reservationData.splice(i, 1); 
+        }    
+  }
+  if (waitlistData.length > 0) {
+    let outWaitList = waitlistData.splice(0, 1)
+    reservationData.push(outWaitList[0]);
+  }
+  res.json(true);
+});
+
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
 // Starts the server to begin listening
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));

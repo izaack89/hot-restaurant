@@ -72,7 +72,6 @@
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log('tables.html', data);
                     if (data == true) {
                         alert("Yay! You are officially booked!")
                     }
@@ -102,11 +101,11 @@
                     'Content-Type': 'application/json',
                 }
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("Clear List");
-                    location.href = '/tables';
-                });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Clear List");
+                location.href = '/tables';
+            });
         });
     </script>
 </body>
