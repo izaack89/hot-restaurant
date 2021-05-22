@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hot Restaurant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:3000//style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">Hot Restaurant</h1>
+        <p class="lead">Current reservations and waitlist.</p>
+        <hr class="my-4" />
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/reserve" role="button">Make a reservation</a>
+            <button class="btn"><i class="fa fa-home"></i></button>
+        </p>
+    </div>
+    <div>
+        <ul class="list-group" id="currentReservation">
+            <li class="nav-header disabled"><a>Current reservations</a></li>
+        </ul>
+    </div>
+    <div>
+        <ul class="list-group" id="waitlist">
+            <li class="nav-header disabled"><a>Waitlist</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const currentReservation=document.querySelector('#currentReservation');
+        const waitlist = document.querySelector('#waitlist');
+        fetch(`/api/tables`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                data.forEach(reservation => {
+                    let liEL = document.createElement('li');
+                    liEL.setAttribute("class", "list-group-item");
+                    liEL.textContent = reservation.name;
+                    currentReservation.append(liEL);
+                });
+                                
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+            fetch(`/api/waitlist`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        data.forEach(reservation => {
+                            let liEL = document.createElement('li');
+                            liEL.setAttribute("class", "list-group-item");
+                            liEL.textContent = reservation.name;
+                            waitlist.append(liEL);
+                        });
+
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+    </script>
+</body>
+</html>

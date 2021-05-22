@@ -1,0 +1,41 @@
+.list-group {
+  margin-top: 50px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+}
+#submit {
+  margin-left: 200px;
+}
+.list-title {
+  font-size: large;
+  font-weight: bold;
+  list-style-type: none;
+}
+.btn:hover {
+  background-color: RoyalBlue;
+}
+.jumbotron {
+  margin-left: 200px;
+  margin-right: 200px;
+  text-align: center;
+}
+.form-group {
+  margin: 20px;
+}
+#form-div {
+  border: 2px solid rgba(211, 211, 211, 0.5);
+  margin-left: 200px;
+  margin-right: 200px;
+}
+.main-title {
+  font-family: "Staatliches", cursive;
+}
